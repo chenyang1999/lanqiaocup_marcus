@@ -1456,3 +1456,77 @@ print(person)
 set()
 '''
 ```
+
+## Heapq
+
+数据结构堆（heap）是一种优先队列。使用优先队列能够以任意顺序增加对象，并且能在任意的时间（可能在增加对象的同时）找到（也可能移除）最小的元素，也就是说它比python的min方法更加有效率。
+
+**1、heappush(heap,n)数据堆入**
+
+```
+In [1]: import heapq as hq
+In [2]: import numpy as np
+In [3]: data = np.arange(10)
+#将生成的数据随机打乱顺序
+In [4]: np.random.shuffle(data)
+In [5]: data
+Out[5]: array([5, 8, 6, 3, 4, 7, 0, 1, 2, 9])
+#定义heap列表
+In [6]: heap = []
+#使用heapq库的heappush函数将数据堆入
+In [7]: for i in data:
+   ...:     hq.heappush(heap,i)
+   ...:
+In [8]: heap
+Out[8]: [0, 1, 3, 2, 5, 7, 6, 8, 4, 9]
+
+In [9]: hq.heappush(heap,0.5)
+In [10]: heap
+Out[10]: [0, 0.5, 3, 2, 1, 7, 6, 8, 4, 9, 5]12345678910111213141516171819
+```
+
+**2、heappop(heap)将数组堆中的最小元素弹出**
+
+```
+In [11]: hq.heappop(heap)
+Out[11]: 0
+
+In [12]: hq.heappop(heap)
+Out[12]: 0.512345
+```
+
+**3、heapify(heap) 将heap属性强制应用到任意一个列表**
+
+heapify 函数将使用任意列表作为参数，并且尽可能少的移位操作，，将其转化为合法的堆。如果没有建立堆，那么在使用heappush和heappop前应该使用该函数。
+
+```
+In [13]: heap = [5,8,0,3,6,7,9,1,4,2]
+
+In [14]: hq.heapify(heap)
+
+In [15]: heap
+Out[15]: [0, 1, 5, 3, 2, 7, 9, 8, 4, 6]123456
+```
+
+**4、heapreplace(heap，n)弹出最小的元素被n替代**
+
+```
+In [17]: hq.heapreplace(heap,0.5)
+Out[17]: 0
+
+In [18]: heap
+Out[18]: [0.5, 1, 5, 3, 2, 7, 9, 8, 4, 6]12345
+```
+
+**5、nlargest(n,iter)、nsmallest(n,iter)**
+heapq中剩下的两个函数nlargest(n.iter)和nsmallest(n.iter)分别用来寻找任何可迭代的对象iter中第n大或者第n小的元素。可以通过使用排序（sorted函数）和分片进行完成。
+
+```
+#返回第一个最大的数
+In [19]: hq.nlargest(1,heap)
+Out[19]: [9]
+#返回第一个最小的数
+In [20]: hq.nsmallest(1,heap)
+Out[20]: [0.5]
+```
+
